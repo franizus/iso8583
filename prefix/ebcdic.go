@@ -48,7 +48,9 @@ func (p *ebcdicVarPrefixer) DecodeLength(maxLen int, data []byte) (int, error) {
 		return 0, err
 	}
 
-	dataLen, err := strconv.Atoi(string(bDigits))
+	digits := strings.TrimSpace(string(bDigits))
+
+	dataLen, err := strconv.Atoi(digits)
 	if err != nil {
 		return 0, err
 	}
