@@ -545,6 +545,7 @@ func TestPackUnpack_ThirdBitmap(t *testing.T) {
 	}
 
 	type Data struct {
+		F0   string
 		F2   string
 		F3   string
 		F4   string
@@ -575,6 +576,7 @@ func TestPackUnpack_ThirdBitmap(t *testing.T) {
 	}
 
 	data := &Data{
+		F0:  "0100",
 		F2:  "4761340000000019",
 		F3:  "000000",
 		F4:  "1000",
@@ -609,7 +611,7 @@ func TestPackUnpack_ThirdBitmap(t *testing.T) {
 
 	t.Run("should pack message successfully", func(t *testing.T) {
 		msg := NewMessage(MessageSpecification)
-		msg.MTI("0100")
+		msg.MTI(data.F0)
 
 		f55, _ := hex.DecodeString(data.F55)
 		f104, _ := hex.DecodeString(data.F104)
@@ -679,6 +681,7 @@ func TestPackUnpack_ThirdBitmap(t *testing.T) {
 		f104 := hex.EncodeToString([]byte(msg.F104.Value))
 		f135 := hex.EncodeToString([]byte(msg.F135.Value))
 
+		require.Equal(t, data.F0, msg.F0.Value)
 		require.Equal(t, data.F2, msg.F2.Value)
 		require.Equal(t, data.F3, msg.F3.Value)
 		require.Equal(t, data.F4, msg.F4.Value)
