@@ -169,6 +169,9 @@ func (f *Bitmap) setBitmapFields() bool {
 		for i := bitmapStart; i <= bitmapEnd; i++ {
 			bitmapBit := (bitmapIndex-2)*64 + 1
 			if f.IsSet(i) {
+				if bitmapIndex == 3 {
+					f.Set(1)
+				}
 				f.Set(bitmapBit)
 				break
 			}
